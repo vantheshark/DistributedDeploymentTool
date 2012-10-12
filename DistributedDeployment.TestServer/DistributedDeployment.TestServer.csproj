@@ -48,16 +48,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DistributedDeployment\DistributedDeployment.csproj">
-      <Project>{10692A00-0A93-4B08-8E76-A36BBF19DDD5}</Project>
-      <Name>DistributedDeployment</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DistributedDeployment\DistributedDeployment.csproj">
+      <Project>{09232678-DF95-4EF4-90BA-CA8ECACE0CBA}</Project>
+      <Name>DistributedDeployment</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

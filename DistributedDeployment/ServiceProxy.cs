@@ -27,10 +27,15 @@ namespace DistributedDeployment
 
         private static Binding SetTimeout(this Binding binding, int timeout)
         {
-            binding.SendTimeout = TimeSpan.FromSeconds(timeout);
-            binding.ReceiveTimeout = TimeSpan.FromSeconds(timeout);
-            binding.OpenTimeout = TimeSpan.FromSeconds(timeout);
-            binding.CloseTimeout = TimeSpan.FromSeconds(timeout);
+            var validTimeout = Math.Min(int.MaxValue, timeout*1000);
+            if (validTimeout < 0)
+            {
+                validTimeout = int.MaxValue;
+            }
+            binding.SendTimeout = TimeSpan.FromMilliseconds(validTimeout);
+            binding.ReceiveTimeout = TimeSpan.FromMilliseconds(timeout);
+            binding.OpenTimeout = TimeSpan.FromMilliseconds(timeout);
+            binding.CloseTimeout = TimeSpan.FromMilliseconds(timeout);
             return binding;
         }
     }

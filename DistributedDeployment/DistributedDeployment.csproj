@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{10692A00-0A93-4B08-8E76-A36BBF19DDD5}</ProjectGuid>
+    <ProjectGuid>{09232678-DF95-4EF4-90BA-CA8ECACE0CBA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DistributedDeployment</RootNamespace>
@@ -34,15 +34,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -51,18 +57,29 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ListenOnPortCommand.cs" />
     <Compile Include="Commands\SendExitSignalCommand.cs" />
+    <Compile Include="DeploymentService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DeploymentService.Designer.cs">
+      <DependentUpon>DeploymentService.cs</DependentUpon>
+    </Compile>
     <Compile Include="ISignalListener.cs" />
     <Compile Include="NDesk\Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteCommandService.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="ServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceInstaller.Designer.cs">
+      <DependentUpon>ServiceInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

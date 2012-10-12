@@ -8,7 +8,7 @@ namespace DistributedDeployment.Commands
         {
             if (parsedParams.ContainsKey("port"))
             {
-                return new ListenOnPortCommand(parsedParams["securityToken"] as string, int.Parse((string)parsedParams["port"]));    
+                return new ListenOnPortCommand(parsedParams["securityToken"] as string, (int)parsedParams["port"]);    
             }
 
             
