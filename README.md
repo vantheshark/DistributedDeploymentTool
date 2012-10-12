@@ -24,12 +24,13 @@ Your app should implement this interface and listen on the Exit signal from this
 ##2. USAGES
 * Execute a command on remote server:
 The server should listen on a port(default 5555) and specify a security token.
+
+Server: execute this line
 ```clj
-Server:
 DD -listen 5555 -token YourS3cur!tyTok3n
 ```
 
-The client simply send a command with the same token
+Client: simply send a command with the same token
 ```clj
 Server:
 DD -execute C:\SomeFolder\DeployAwesomeService.bat -token YourS3cur!tyTok3n
