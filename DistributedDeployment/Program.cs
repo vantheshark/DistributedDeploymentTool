@@ -26,8 +26,8 @@ namespace DistributedDeployment
                     (int v) => parsedParams["waitTime"] = v
                 },
                 {
-                    "f|kill", "kill the target service if timeout.",
-                    (int v) => parsedParams["killIfTimeout"] = true
+                    "f|kill=", "kill the target {PROCESS} if timeout.",
+                    v => parsedParams["killIfTimeout"] = v
                 },
                 {
                     "s|stop=", "the {SERVICE} to send stop signal to." +

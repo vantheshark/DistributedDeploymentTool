@@ -16,7 +16,7 @@ namespace DistributedDeployment.Commands
             {
                 return new SendExitSignalCommand(parsedParams["targetService"] as string,
                                                  parsedParams.ContainsKey("waitTime") ? (int)parsedParams["waitTime"] : -1,
-                                                 parsedParams.ContainsKey("killIfTimeout"));
+                                                 parsedParams.ContainsKey("killIfTimeout") ? parsedParams["killIfTimeout"] as string : null);
             }
 
             if (parsedParams.ContainsKey("remoteCommand"))

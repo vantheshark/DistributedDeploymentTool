@@ -8,9 +8,9 @@ namespace DistributedDeployment.Commands
     {
         private readonly string _targetService;
         private readonly int _waitSeconds;
-        private readonly bool _killIfTimeout;
+        private readonly string _killIfTimeout;
 
-        public SendExitSignalCommand(string targetService, int waitSeconds = -1, bool killIfTimeout = false)
+        public SendExitSignalCommand(string targetService, int waitSeconds = -1, string killIfTimeout = null)
         {
             _targetService = targetService;
             _waitSeconds = waitSeconds;
@@ -21,16 +21,16 @@ namespace DistributedDeployment.Commands
         {
             SendExitSignal(_targetService, _waitSeconds > 0 ? _waitSeconds : int.MaxValue);
             
-            if (_waitSeconds > 0 && _killIfTimeout)
+            if (_waitSeconds > 0 && !string.IsNullOrEmpty(_killIfTimeout))
             {
-                var processes = Process.GetProcessesByName(_targetService);
+                var processes = Process.GetProcessesByName(_killIfTimeout);
                 if (processes.Any())
                 {
                     Console.WriteLine("Killing {0} process", processes.Count());
                     foreach (var p in processes)
                     {
                         p.Kill();
-                        return string.Format("{0} has been killed.", _targetService);
+                        return string.Format("Process {0} has been killed.", _killIfTimeout);
                     }
                 }
             }
