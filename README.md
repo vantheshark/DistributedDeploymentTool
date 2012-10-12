@@ -1,8 +1,6 @@
 Simple Distributed Deployment Tool
 -----------------------------------------------------------------------
-* https://github.com/vanthoainguyen/Burrow.NET    
-* http://burrow.codeplex.com/
-
+* https://github.com/vanthoainguyen/DistributedDeploymentTool
 
 ##1. INTRODUCTION
 
@@ -24,14 +22,14 @@ Your app should implement this interface and listen on the Exit signal from this
 ##2. USAGES
 * Execute a command on remote server:
 The server should listen on a port(default 5555) and specify a security token.
+
+Server: execute this line
 ```clj
-Server:
 DD -listen 5555 -token YourS3cur!tyTok3n
 ```
 
-The client simply send a command with the same token
+Client: simply send a command with the same token
 ```clj
-Server:
 DD -execute C:\SomeFolder\DeployAwesomeService.bat -token YourS3cur!tyTok3n
 ```
 
@@ -51,6 +49,6 @@ DD -s LongRunningService -w 10 --kill
 ```
 The --kill is optional, it will try to kill the process by process name, which is also "LongRunningService" so take attention if you have multiple processes of the service.
 
-##4. LICENCE
+##3. LICENCE
 http://sam.zoy.org/wtfpl/COPYING 
 ![Troll](http://i40.tinypic.com/2m4vl2x.jpg) 
