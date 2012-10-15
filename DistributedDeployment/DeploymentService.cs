@@ -9,7 +9,7 @@ namespace DistributedDeployment
     public partial class DeploymentService : ServiceBase
     {
         private readonly string[] _args;
-        private ICommand _command = null;
+        private ICommand _command;
 
         public DeploymentService(string[] args)
         {
@@ -24,9 +24,13 @@ namespace DistributedDeployment
 
         protected override void OnStart(string[] args)
         {
+            if (args == null || args.Length == 0)
+            {
+                args = _args;
+            }
+
             bool showHelp = false;
             var parsedParams = new Dictionary<string, object>();
-
             var p = new OptionSet
             {
                 {
@@ -66,8 +70,6 @@ namespace DistributedDeployment
                     v => showHelp = v != null
                 },
             };
-
-
             
             try
             {
@@ -75,36 +77,32 @@ namespace DistributedDeployment
             }
             catch (OptionException e)
             {
-                Console.Write("DD: ");
-                Console.WriteLine(e.Message);
-                Console.WriteLine("Try `DD --help' for more information.");
+                Program.Logger.Debug("DD: ");
+                Program.Logger.Debug(e.Message);
+                Program.Logger.Debug("Try `DD --help' for more information.");
                 return;
             }
 
             try
             {
                 _command = CommandFactory.Create(parsedParams);
+                Program.Logger.Debug("Parsed command: " + (_command == null ? "NULL" : _command.GetType().Name));
             }
             catch (Exception ex)
             {
+                Program.Logger.Error(ex.Message, ex);
                 showHelp = true;
             }
 
             if (showHelp || _command == null)
             {
+                Program.Logger.Debug("Passed args: " + string.Join(", ", args));
                 Program.ShowHelp(p);
-#if DEBUG
-                Program.ReadKey();
-#endif
                 return;
             }
 
-            Console.WriteLine(_command.Execute());
-#if DEBUG
-            Console.WriteLine("DEBUG: Press anykey to exit");
-            Program.ReadKey();
-#endif
-
+            Program.Logger.Debug("Before running command");
+            Program.Logger.Debug(_command.Execute());
         }
 
         protected override void OnStop()

@@ -4,7 +4,7 @@ Simple Distributed Deployment Tool
 
 ##1. INTRODUCTION
 
-This is a small simple console application tool which can
+This is a small simple console x64 application tool which can
 
 * Act as a client to execute a command on remote server
 * Act as a server to listen on a specific port for the remote commands from client
@@ -18,7 +18,7 @@ public interface ISignalListener
 }
 ```
 
-Your app should implement this interface and listen on the Exit signal from this utility to facilitate the application gently exit.
+Your app should implement this interface and listen on the Exit signal from this utility to facilitate the application gently exit. If you need x86 version, please compile from source ;)
 
 
 ##2. USAGES
@@ -33,6 +33,14 @@ Server: execute this line
 Client: simply send a command with the same token
 
 >  _DD -execute C:\SomeFolder\DeployAwesomeService.bat -token YourS3cur!tyTok3n_
+
+Install as a service: 
+
+>  _C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /listen=5555 /token=YourS3cur!tyTok3n /i DD.exe_
+
+Uninstall window service:
+
+>  _C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /listen=5555 /token=YourS3cur!tyTok3n /u DD.exe_
 
 
 * Send "Exit" signal to an app in the same box

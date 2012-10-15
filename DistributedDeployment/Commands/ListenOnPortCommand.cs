@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DistributedDeployment.Commands
 {
@@ -8,7 +6,7 @@ namespace DistributedDeployment.Commands
     {
         private readonly string _securityToken;
         private readonly int _port;
-        private readonly AutoResetEvent _waitHandler  = new AutoResetEvent(false);
+        private IDisposable _host;
 
         public ListenOnPortCommand(string securityToken, int port = 5555)
         {
@@ -18,14 +16,7 @@ namespace DistributedDeployment.Commands
 
         public string Execute()
         {
-            Task.Factory.StartNew(() =>
-            {
-                using (var host = Server.Start<IRemoteCommandService>(new RemoteCommandService(_securityToken), _port))
-                {
-                    _waitHandler.WaitOne();
-                }
-            }, TaskCreationOptions.LongRunning);
-            
+            _host = Server.Start<IRemoteCommandService>(new RemoteCommandService(_securityToken), _port);
             if (Environment.UserInteractive)
             {
                 Console.WriteLine();
@@ -37,7 +28,6 @@ namespace DistributedDeployment.Commands
                     if ((keyinfo.Modifiers & ConsoleModifiers.Alt) != 0 &&
                         (keyinfo.Key == ConsoleKey.X || keyinfo.Key == ConsoleKey.Q))
                     {
-                        _waitHandler.Set();
                         break;
                     }
                 } while (true);
@@ -47,7 +37,10 @@ namespace DistributedDeployment.Commands
 
         public void Dispose()
         {
-            _waitHandler.Dispose();
+            if (_host != null)
+            {
+                _host.Dispose();
+            }
         }
     }
 }

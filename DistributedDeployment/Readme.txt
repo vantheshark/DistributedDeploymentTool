@@ -28,7 +28,8 @@ Options:
                              the SECURITYTOKEN to pass to the remote server
 
   -h, --help                 show this message and exit
-
+
+
 
 
 ### The targe app should implement ISignalListener
@@ -38,3 +39,11 @@ Options:
 	var svc = new Your_Long_Running_Ap_Which_Implement_ISignalListener();
 
 	Server.Start<ISignalListener>(svc, "YourServiceName");
+
+
+
+### Install as window service:
+	C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /listen=5555 /token=YourS3cur!tyTok3n /i DD.exe
+
+### Uniistall window service:
+	C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /listen=5555 /token=YourS3cur!tyTok3n /u DD.exe

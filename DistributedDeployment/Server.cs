@@ -12,7 +12,7 @@ namespace DistributedDeployment
 
             var behaviour = host.Description.Behaviors.Find<ServiceBehaviorAttribute>();
             behaviour.InstanceContextMode = InstanceContextMode.Single;
-            host.Open();
+            host.BeginOpen(o => Program.Logger.Debug("Host opened: " + host.BaseAddresses[0].AbsoluteUri), null);
             return host;
         }
 
@@ -26,8 +26,8 @@ namespace DistributedDeployment
             
             var behaviour = host.Description.Behaviors.Find<ServiceBehaviorAttribute>();
             behaviour.InstanceContextMode = InstanceContextMode.Single;
-            
-            host.Open();
+
+            host.BeginOpen(o => Program.Logger.Debug("Host opened: " + tcpBaseAddress), null);
             return host;
         }
 
@@ -42,12 +42,15 @@ namespace DistributedDeployment
                     MaxArrayLength = 16384,
                     MaxBytesPerRead = 4096,
                     MaxNameTableCharCount = 16384
+                },
+                MaxBufferPoolSize = 524288,
+                MaxBufferSize = 5242880,
+                MaxReceivedMessageSize = 5242880,
+                Security =
+                {
+                    Mode = SecurityMode.None
                 }
             };
-            tcpBinding.MaxBufferPoolSize = 524288;
-            tcpBinding.MaxBufferSize = 5242880;
-            tcpBinding.MaxReceivedMessageSize = 5242880;
-            tcpBinding.Security.Mode = SecurityMode.None;
 
             return tcpBinding;
         }

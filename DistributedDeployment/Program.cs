@@ -6,6 +6,8 @@ namespace DistributedDeployment
 {
     static class Program
     {
+        public static ILog Logger = new ConsoleLog();
+ 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -14,6 +16,7 @@ namespace DistributedDeployment
             var svc = new DeploymentService(args);
             if (!Environment.UserInteractive)
             {
+                Logger = new EventLogger();
                 ServiceBase.Run(svc);
             }
             else

@@ -63,6 +63,7 @@
     <Compile Include="DeploymentService.Designer.cs">
       <DependentUpon>DeploymentService.cs</DependentUpon>
     </Compile>
+    <Compile Include="ILog.cs" />
     <Compile Include="ISignalListener.cs" />
     <Compile Include="NDesk\Options.cs" />
     <Compile Include="Program.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="ServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NDesk\DONT-BOTHER-READING-ANYTHING-IN-THIS-FOLDER.txt" />
     <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
