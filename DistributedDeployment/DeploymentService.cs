@@ -86,7 +86,6 @@ namespace DistributedDeployment
             try
             {
                 _command = CommandFactory.Create(parsedParams);
-                Program.Logger.Debug("Parsed command: " + (_command == null ? "NULL" : _command.GetType().Name));
             }
             catch (Exception ex)
             {
@@ -100,8 +99,6 @@ namespace DistributedDeployment
                 Program.ShowHelp(p);
                 return;
             }
-
-            Program.Logger.Debug("Before running command");
             Program.Logger.Debug(_command.Execute());
         }
 
